@@ -5,6 +5,7 @@ import { useBoardStore } from './state/boardStore';
 import { useTflArrivals } from './hooks/useTflArrivals';
 import { useLineStatus } from './hooks/useLineStatus';
 import { groupArrivalsByPlatform } from './utils/groupArrivals';
+import LineStripes from './components/LineStripes';
 import './App.css';
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
   }, [selectedStation?.id]);
 
   const activeBoard = boards[activePlatform] ?? boards[0] ?? null;
-  const serviceMessage = useLineStatus(activeBoard?.lineId ?? null);
+  const serviceMessage = useLineStatus(activeBoard?.lineIds ?? []);
 
   return (
     <div className="app-page">
@@ -37,7 +38,8 @@ function App() {
                 className={`app-platform-tab${i === activePlatform ? ' is-active' : ''}`}
                 onClick={() => setActivePlatform(i)}
               >
-                {board.platformLabel}
+                <span>{board.platformLabel}</span>
+                <LineStripes lineIds={board.lineIds} />
               </button>
             ))}
           </div>

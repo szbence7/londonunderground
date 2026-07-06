@@ -13,8 +13,8 @@ export interface ArrivalBoard {
   rows: DepartureRowData[];
   /** True when the soonest arrival on this platform is "Due" — row 3 should show the safety message instead of the carousel. */
   trainApproaching: boolean;
-  /** The line serving this platform, e.g. "piccadilly" — used to look up live service status. */
-  lineId: string | null;
+  /** Unique line ids serving this platform (soonest arrival's line first), e.g. ["circle", "district"]. */
+  lineIds: string[];
 }
 
 /** 2 fixed rows + up to 3 more that cycle through row 3, matching the real boards. */
@@ -46,7 +46,7 @@ export function groupArrivalsByPlatform(arrivals: TflArrival[]): ArrivalBoard[] 
           time: formatTimeToStation(a.timeToStation),
         })),
         trainApproaching: (sorted[0]?.timeToStation ?? Infinity) <= 30,
-        lineId: sorted[0]?.lineId ?? null,
+        lineIds: [...new Set(sorted.map((a) => a.lineId))],
       };
     })
     .sort((a, b) => a.platformLabel.localeCompare(b.platformLabel));

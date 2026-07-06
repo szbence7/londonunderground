@@ -5,15 +5,16 @@ const POLL_INTERVAL_MS = 60_000;
 const GOOD_SERVICE = 'Good Service';
 
 /**
- * Polls TfL's line status for `lineId` and returns the current disruption message, if any —
+ * Polls TfL's line status for `lineIds` and returns the first disruption message found, if any —
  * real boards show this kind of service message (not just next-train times) when a line isn't
- * running a good service. Returns null when the service is running normally or there's no line.
+ * running a good service. Returns null when every line is running normally or there are none.
  */
-export function useLineStatus(lineId: string | null): string | null {
+export function useLineStatus(lineIds: string[]): string | null {
   const [message, setMessage] = useState<string | null>(null);
+  const key = lineIds.join(',');
 
   useEffect(() => {
-    if (!lineId) {
+    if (lineIds.length === 0) {
       setMessage(null);
       return;
     }
@@ -22,14 +23,13 @@ export function useLineStatus(lineId: string | null): string | null {
 
     async function poll() {
       try {
-        const lines = await getLineStatus([lineId as string]);
+        const lines = await getLineStatus(lineIds);
         if (cancelled) return;
-        const status = lines[0]?.lineStatuses?.[0];
-        if (!status || status.statusSeverityDescription === GOOD_SERVICE) {
-          setMessage(null);
-        } else {
-          setMessage(status.reason || status.statusSeverityDescription);
-        }
+        const disrupted = lines.find((line) =>
+          line.lineStatuses.some((s) => s.statusSeverityDescription !== GOOD_SERVICE),
+        );
+        const status = disrupted?.lineStatuses.find((s) => s.statusSeverityDescription !== GOOD_SERVICE);
+        setMessage(status ? status.reason || status.statusSeverityDescription : null);
       } catch {
         if (!cancelled) setMessage(null);
       }
@@ -41,7 +41,8 @@ export function useLineStatus(lineId: string | null): string | null {
       cancelled = true;
       clearInterval(interval);
     };
-  }, [lineId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
   return message;
 }

@@ -17,6 +17,7 @@ const stations = stopPoints
   .map((sp) => ({
     id: sp.id,
     name: sp.commonName.replace(/ Underground Station$/, ''),
+    lineIds: (sp.lines ?? []).map((l) => l.id),
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 

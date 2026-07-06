@@ -36,6 +36,9 @@
 }
 
 .station-selector-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   padding: 8px 10px;
   border-radius: 4px;
   color: #ddd;

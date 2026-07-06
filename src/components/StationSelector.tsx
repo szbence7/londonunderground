@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import { SEED_STATIONS, type StationOption } from '../data/stations';
+import LineStripes from './LineStripes';
 import './StationSelector.css';
 
 export interface StationSelectorProps {
@@ -79,7 +80,8 @@ export default function StationSelector({ onSelect, options = SEED_STATIONS }: S
               onMouseDown={() => choose(station)}
               onMouseEnter={() => setActiveIndex(i)}
             >
-              {station.name}
+              <span className="station-selector-option-name">{station.name}</span>
+              <LineStripes lineIds={station.lineIds} />
             </li>
           ))}
         </ul>

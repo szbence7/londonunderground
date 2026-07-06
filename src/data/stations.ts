@@ -3,6 +3,7 @@ import londonUndergroundStations from './londonUndergroundStations.json';
 export interface StationOption {
   id: string;
   name: string;
+  lineIds: string[];
 }
 
 /**

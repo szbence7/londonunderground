@@ -58,9 +58,11 @@ src/
     DepartureBoard.css     # physical housing/bezel styling
     StationSelector.tsx    # searchable station combobox
     StationSelector.css
+    LineStripes.tsx        # small per-line colour swatches (dropdown + platform tabs)
   data/
     stations.ts            # exports the full station list below
-    londonUndergroundStations.json  # all 272 LU stations, snapshotted from the TfL API
+    londonUndergroundStations.json  # all 272 LU stations (+ serving lines), snapshotted from the TfL API
+    lineColors.ts           # official TfL line colours, e.g. central=red, circle=yellow
   hooks/
     useTflArrivals.ts      # polling hook for live arrivals (25s default)
     useLineStatus.ts       # polls line disruption status for the active board's line
@@ -106,6 +108,13 @@ src/
 - **Clock**: always shows UK local time (`Europe/London`, so it switches
   between GMT and BST automatically), regardless of the viewer's own
   timezone — matching how the real boards work.
+- **Line colours**: the station dropdown and platform tabs show a small
+  swatch per line serving that station/platform, in official TfL
+  colours (from each station's `lines` field in the TfL data, and each
+  platform's actual arrivals — a shared platform like Circle/District
+  shows both). A destination like "Hainault via Newbury Park" comes
+  from TfL's own `towards` field, which already disambiguates branch
+  lines — `destinationName` alone would just say "Hainault".
 - **Row 3 priority**: the safety message ("Due") beats a live line
   disruption message, which beats the swipe-up carousel of further
   arrivals, which beats nothing at all — matching how a real indicator

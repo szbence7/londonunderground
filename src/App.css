@@ -34,6 +34,10 @@
 }
 
 .app-platform-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
   padding: 8px 14px;
   font-size: 13px;
   font-weight: 500;

@@ -1,0 +1,12 @@
+.line-stripes {
+  display: inline-flex;
+  gap: 3px;
+  vertical-align: middle;
+}
+
+.line-stripe {
+  display: inline-block;
+  width: 16px;
+  height: 5px;
+  border-radius: 2px;
+}
