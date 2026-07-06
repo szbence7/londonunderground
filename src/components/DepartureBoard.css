@@ -1,0 +1,71 @@
+.departure-board-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.departure-board-housing {
+  display: inline-block;
+  padding: 18px 22px;
+  background: linear-gradient(180deg, #3a3a3d 0%, #232326 40%, #1a1a1c 100%);
+  border-radius: 10px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 12px 28px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.departure-board-bezel {
+  padding: 14px 16px;
+  background: #050505;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.9),
+    inset 0 3px 10px rgba(0, 0, 0, 0.85);
+}
+
+.departure-board-canvas {
+  display: block;
+  background: #0a0a0a;
+  image-rendering: pixelated;
+}
+
+/* Fullscreen: the monitor *is* the display — black background, canvas, nothing else. */
+.departure-board-housing:fullscreen,
+.departure-board-housing.is-fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background: #000;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.departure-board-housing:fullscreen .departure-board-bezel,
+.departure-board-housing.is-fullscreen .departure-board-bezel {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.departure-board-fullscreen-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  color: #b5b5bd;
+  background: #1c1c20;
+  border: 1px solid #3a3a40;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.departure-board-fullscreen-btn:hover {
+  border-color: #55555e;
+  color: #eee;
+}

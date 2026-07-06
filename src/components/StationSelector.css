@@ -1,0 +1,49 @@
+.station-selector {
+  position: relative;
+  width: 280px;
+}
+
+.station-selector-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  font-size: 15px;
+  background: #1c1c20;
+  border: 1px solid #3a3a40;
+  border-radius: 6px;
+  color: #eee;
+}
+
+.station-selector-input:focus {
+  outline: none;
+  border-color: #ffb000;
+}
+
+.station-selector-listbox {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #1c1c20;
+  border: 1px solid #3a3a40;
+  border-radius: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.station-selector-option {
+  padding: 8px 10px;
+  border-radius: 4px;
+  color: #ddd;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.station-selector-option.is-active {
+  background: #ffb000;
+  color: #1a1a1a;
+}
